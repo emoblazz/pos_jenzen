@@ -1,0 +1,1 @@
+2020 &copy; Sales and Inventory System
