@@ -137,7 +137,7 @@ include('session.php');
 														</div>
 													</div>
 												</a>
-												<a href="reports.php">
+												<a href="sales.php">
 													<div class="tile bg-green">
 														<div class="tile-body">
 															<i class="fa fa-bar-chart-o"></i>
@@ -153,7 +153,7 @@ include('session.php');
 													</div>
 												</a>
 
-												<a href="reports.php">
+												<a href="income.php">
 													<div class="tile bg-green">
 														<div class="tile-body">
 															<i class="fa fa-bar-chart-o"></i>

@@ -21,7 +21,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title><?php include('title.php');?> | Supplier</title>
+<title><?php include('title.php');?> | Expenses</title>
 <?php include('head.php');?>
 
 </head>
@@ -62,7 +62,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<div class="portlet box blue">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-edit"></i>Supplier
+								<i class="fa fa-edit"></i>Expenses
 							</div>
 						</div>
 						<div class="portlet-body">
@@ -70,74 +70,75 @@ License: You must have a valid license purchased only from themeforest(the above
 							<table class="table table-striped table-hover table-bordered" id="example">
 							<thead>
 							<tr>								
-                        		<th>Supplier Name</th>
-                        		<th>Address</th>
-                        		<th>Contact #</th>
-						        <th>Edit</th>
-                        		<th>Delete</th>
-                        		
+								<th>
+									 Date
+								</th>
+								<th>
+									 Expense
+								</th>
+								<th>
+									 Amount
+								</th>
+								<th>
+									 Edit
+								</th>
+								<th>
+									 Delete
+								</th>
 							</tr>
 							</thead>
 							<tbody>
 <?php
 	include('../includes/dbcon.php');
-	$query=mysqli_query($con,"select * from supplier order by supplier_name")or die(mysqli_error());
+	$query1=mysqli_query($con,"select * from expense order by expense_date desc")or die(mysqli_error());
 		
-		$countassign=mysqli_num_rows($query);
+		$countassign=mysqli_num_rows($query1);
 		if ($countassign<1) echo "
 			<div class='alert alert-danger'>
-				You have no supplier yet!
+				You have no expense yet!
 			</div>";
-			while($row=mysqli_fetch_array($query))
+			while($row2=mysqli_fetch_array($query1))
 			{
 			
 ?>								
 							<tr>
-                        		<td><?php echo $row['supplier_name'];?></td>
-                        		<td><?php echo $row['supplier_address'];?></td>
-                        		<td><?php echo $row['supplier_contact'];?></td>
-						        <td>
-									<a class="btn default" data-toggle="modal" href="#edit<?php echo $row['supplier_id'];?>">
+								<td>
+									 <?php echo $row2['expense_date'];?>
+								</td>
+								<td>
+									 <?php echo $row2['expense'];?>
+								</td>
+								<td>
+									 <?php echo $row2['expense_amount'];?>
+								</td>
+								<td>
+									<a class="btn default" data-toggle="modal" href="#edit<?php echo $row2['expense_id'];?>">
 									<i class="icon-note font-blue"></i> </a>
 								</td>
 								<td>
-									<a class="btn default" data-toggle="modal" href="#delete<?php echo $row['supplier_id'];?>">
+									<a class="btn default" data-toggle="modal" href="#delete<?php echo $row2['expense_id'];?>">
 									<i class="icon-trash font-red"></i> </a>
 								</td>
 							</tr>
 							<!-- /.edit -->
-							<div class="modal fade bs-modal-sm" id="edit<?php echo $row['supplier_id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal fade bs-modal-sm" id="edit<?php echo $row2['cat_id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
 								<div class="modal-dialog modal-sm">
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-											<h4 class="modal-title">Update Supplier Details</h4>
+											<h4 class="modal-title">Update Expense Details</h4>
 										</div>
 										<div class="modal-body">
 											<!-- BEGIN SAMPLE FORM PORTLET-->
 										<div class="portlet light">
 											
 											<div class="portlet-body form">
-												<form role="form" method="post" action="supplier_update.php">
-													<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $row['supplier_id'];?>" required>
-													<div class="form-group form-md-line-input form-md-floating-label-info">
-														<input type="text" class="form-control" id="form_control_1" name="name" value="<?php echo $row['supplier_name'];?>" required>
-														<label for="form_control_1">Supplier Name</label>
-														<span class="help-block">Supplier Name</span>
+												<form role="form" method="post" action="expense_update.php">
+													<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $row2['expense_id'];?>" required>
+													<div class="form-group form-md-line-input form-md-floating-label">
+														<input type="text" class="form-control" id="form_control_1" name="expense" value="<?php echo $row2['expense'];?>" required>
+														<span class="help-block">Category Title</span>
 													</div>
-													<div class="form-group form-md-line-input form-md-floating-label-info">
-														<textarea class="form-control" rows="2" name="address"><?php echo $row['supplier_address'];?>
-														</textarea>
-														<label for="form_control_1">Address</label>
-														<span class="help-block">Address</span>
-													</div>
-													
-													<div class="form-group form-md-line-input form-md-floating-label-info">
-														<input type="text" class="form-control" id="form_control_1" name="contact" value="<?php echo $row['supplier_contact'];?>" required>
-														<label for="form_control_1">Contact</label>
-														<span class="help-block">Contact</span>
-													</div>
-													
 											</div>
 										</div>
 										<!-- END SAMPLE FORM PORTLET-->
@@ -153,22 +154,22 @@ License: You must have a valid license purchased only from themeforest(the above
 							</div>
 							<!-- /.modal -->	
 							<!-- /.delete -->
-							<div class="modal fade bs-modal-sm" id="delete<?php echo $row['supplier_id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal fade bs-modal-sm" id="delete<?php echo $row2['expense_id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
 								<div class="modal-dialog modal-sm">
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-											<h4 class="modal-title">Delete Supplier</h4>
+											<h4 class="modal-title">Delete Expense</h4>
 										</div>
 										<div class="modal-body">
 											<!-- BEGIN SAMPLE FORM PORTLET-->
 										<div class="portlet light">
 											
 											<div class="portlet-body form">
-												<form role="form" method="post" action="supplier_del.php">
+												<form role="form" method="post" action="expense_del.php">
 													<div class="form-group form-md-line-input form-md-floating-label">
-														<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $row['supplier_id'];?>" required>
-														Are you sure you want to delete supplier <?php echo $row['supplier_name'];?>?
+														<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $row2['expense_id'];?>" required>
+														Are you sure you want to delete <?php echo $row2['expense'];?>?
 													</div>
 													
 													
@@ -203,28 +204,27 @@ License: You must have a valid license purchased only from themeforest(the above
 											<div class="portlet-title">
 												<div class="caption font-red-sunglo">
 													<i class=" icon-notebook font-red-sunglo"></i>
-													<span class="caption-category bold uppercase"> Add supplier</span>
+													<span class="caption-category bold uppercase"> Add Expense</span>
 												</div>
 											</div>
 											<div class="portlet-body form">
-												<form role="form" method="post" action="supplier_save.php">
-													<div class="form-group form-md-line-input form-md-floating-label has-info">
-														<input type="text" class="form-control" id="form_control_1" name="name" required>
-														<label for="form_control_1">Supplier Name</label>
-														<span class="help-block">Supplier Name</span>
+												<form role="form" method="post" action="expense_save.php">
+													<div class="form-group form-md-line-input form-md-floating-label-info">
+														<input type="date" class="form-control" id="form_control_1" name="date" required>
+														<label for="form_control_1">Date</label>
+														<span class="help-block">Expense Date</span>
 													</div>
 													<div class="form-group form-md-line-input form-md-floating-label">
-														<textarea class="form-control" rows="3" name="address"></textarea>
-														<label for="form_control_1">Address</label>
-														<span class="help-block">Address</span>
+														<input type="text" class="form-control" id="form_control_1" name="expense" required>
+														<label for="form_control_1">Expense</label>
+														<span class="help-block">Expense</span>
 													</div>
 													
 													<div class="form-group form-md-line-input form-md-floating-label">
-														<input type="text" class="form-control" id="form_control_1" name="contact" required>
-														<label for="form_control_1">Contact</label>
-														<span class="help-block">Contact</span>
+														<input type="text" class="form-control" id="form_control_1" name="amount" required>
+														<label for="form_control_1">Amount</label>
+														<span class="help-block">Amount</span>
 													</div>
-													
 													<div class="form-actions noborder">
 														<button type="submit" class="btn blue">Save</button>
 														<button type="reset" class="btn default">Cancel</button>

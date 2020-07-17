@@ -119,25 +119,55 @@ License: You must have a valid license purchased only from themeforest(the above
 											
 											<div class="portlet-body form">
 												<form role="form" method="post" action="supplier_update.php">
-													<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $row['supplier_id'];?>" required>
+													<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $row['prod_id'];?>" required>
 													<div class="form-group form-md-line-input form-md-floating-label-info">
-														<input type="text" class="form-control" id="form_control_1" name="name" value="<?php echo $row['supplier_name'];?>" required>
+														<input type="text" class="form-control" id="form_control_1" name="name" value="<?php echo $row['prod_name'];?>" required>
 														<label for="form_control_1">Supplier Name</label>
 														<span class="help-block">Supplier Name</span>
 													</div>
 													<div class="form-group form-md-line-input form-md-floating-label-info">
-														<textarea class="form-control" rows="2" name="address"><?php echo $row['supplier_address'];?>
+														<textarea class="form-control" rows="2" name="desc"><?php echo $row['prod_desc'];?>
 														</textarea>
-														<label for="form_control_1">Address</label>
-														<span class="help-block">Address</span>
+														<label for="form_control_1">Description</label>
+														<span class="help-block">Description</span>
 													</div>
+													<div class="form-group form-md-line-input form-md-floating-label-info">
+															<select class="form-control" id="form_control_1" name="category">	
+																	<option value="<?php echo $row['cat_id'];?>"><?php echo $row['cat_name'];?></option>
+																<?php
+																 
+																	$query2=mysqli_query($con,"select * from category order by cat_name")or die(mysqli_error());
+																	  while($row2=mysqli_fetch_array($query2)){
+															      ?>
+																	    <option value="<?php echo $row2['cat_id'];?>"><?php echo $row2['cat_name'];?></option>
+															      <?php }?>
+															</select>
+															<label for="form_control_1">Category</label>
+														</div>
 													
 													<div class="form-group form-md-line-input form-md-floating-label-info">
-														<input type="text" class="form-control" id="form_control_1" name="contact" value="<?php echo $row['supplier_contact'];?>" required>
-														<label for="form_control_1">Contact</label>
-														<span class="help-block">Contact</span>
+															<select class="form-control" id="form_control_1" name="supplier">	
+																	<option value="<?php echo $row['supplier_id'];?>"><?php echo $row['supplier_name'];?></option>
+																<?php
+																 
+																	$query2=mysqli_query($con,"select * from supplier order by supplier_name")or die(mysqli_error());
+																	  while($row2=mysqli_fetch_array($query2)){
+															      ?>
+																	    <option value="<?php echo $row2['supplier_id'];?>"><?php echo $row2['supplier_name'];?></option>
+															      <?php }?>
+															</select>
+															<label for="form_control_1">Supplier</label>
+														</div>
+													<div class="form-group form-md-line-input form-md-floating-label-info">
+														<input type="text" class="form-control" id="form_control_1" name="price" value="<?php echo $row['prod_price'];?>" required>
+														<label for="form_control_1">Price</label>
+														<span class="help-block">Price</span>
 													</div>
-													
+													<div class="form-group form-md-line-input form-md-floating-label-info">
+														<input type="number" class="form-control" id="form_control_1" name="reorder" value="<?php echo $row['reorder'];?>" required>
+														<label for="form_control_1">Reorder Point</label>
+														<span class="help-block">Reorder Point</span>
+													</div>
 											</div>
 										</div>
 										<!-- END SAMPLE FORM PORTLET-->
@@ -214,17 +244,47 @@ License: You must have a valid license purchased only from themeforest(the above
 														<span class="help-block">Supplier Name</span>
 													</div>
 													<div class="form-group form-md-line-input form-md-floating-label">
-														<textarea class="form-control" rows="3" name="address"></textarea>
-														<label for="form_control_1">Address</label>
-														<span class="help-block">Address</span>
+														<textarea class="form-control" rows="3" name="desc"></textarea>
+														<label for="form_control_1">Description</label>
+														<span class="help-block">Description</span>
 													</div>
+													<div class="form-group form-md-line-input form-md-floating-label has-info">
+															<select class="form-control" id="form_control_1" name="category">	
+																	<option></option>
+																<?php
+																 
+																	$query2=mysqli_query($con,"select * from category order by cat_name")or die(mysqli_error());
+																	  while($row2=mysqli_fetch_array($query2)){
+															      ?>
+																	    <option value="<?php echo $row2['cat_id'];?>"><?php echo $row2['cat_name'];?></option>
+															      <?php }?>
+															</select>
+															<label for="form_control_1">Category</label>
+														</div>
 													
+													<div class="form-group form-md-line-input form-md-floating-label has-info">
+															<select class="form-control" id="form_control_1" name="supplier">	
+																	<option></option>
+																<?php
+																 
+																	$query2=mysqli_query($con,"select * from supplier order by supplier_name")or die(mysqli_error());
+																	  while($row2=mysqli_fetch_array($query2)){
+															      ?>
+																	    <option value="<?php echo $row2['supplier_id'];?>"><?php echo $row2['supplier_name'];?></option>
+															      <?php }?>
+															</select>
+															<label for="form_control_1">Supplier</label>
+														</div>
 													<div class="form-group form-md-line-input form-md-floating-label">
-														<input type="text" class="form-control" id="form_control_1" name="contact" required>
-														<label for="form_control_1">Contact</label>
-														<span class="help-block">Contact</span>
+														<input type="text" class="form-control" id="form_control_1" name="price" required>
+														<label for="form_control_1">Price</label>
+														<span class="help-block">Price</span>
 													</div>
-													
+													<div class="form-group form-md-line-input form-md-floating-label">
+														<input type="text" class="form-control" id="form_control_1" name="reorder" required>
+														<label for="form_control_1">Reorder Point</label>
+														<span class="help-block">Reorder Point</span>
+													</div>
 													<div class="form-actions noborder">
 														<button type="submit" class="btn blue">Save</button>
 														<button type="reset" class="btn default">Cancel</button>

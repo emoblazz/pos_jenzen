@@ -1,6 +1,4 @@
-<?php 
-include('session.php');
-?>
+<?php include('session.php');?>
 <!DOCTYPE html>
 <!-- 
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.2
@@ -21,7 +19,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title><?php include('title.php');?> | Supplier</title>
+<title><?php include('title.php');?> | Admin</title>
 <?php include('head.php');?>
 
 </head>
@@ -62,82 +60,91 @@ License: You must have a valid license purchased only from themeforest(the above
 								<div class="portlet box blue">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-edit"></i>Supplier
+								<i class="fa fa-edit"></i>Admin
 							</div>
 						</div>
 						<div class="portlet-body">
 							
-							<table class="table table-striped table-hover table-bordered" id="example">
+							<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
 							<thead>
-							<tr>								
-                        		<th>Supplier Name</th>
-                        		<th>Address</th>
-                        		<th>Contact #</th>
-						        <th>Edit</th>
-                        		<th>Delete</th>
-                        		
+							<tr>
+								<th>
+									 Admin Last Name
+								</th>
+								<th>
+									 Admin First Name
+								</th>
+								<th>
+									 Email
+								</th>
+								<th>
+									 Edit
+								</th>
+								<th>
+									 Delete
+								</th>
 							</tr>
 							</thead>
 							<tbody>
 <?php
-	include('../includes/dbcon.php');
-	$query=mysqli_query($con,"select * from supplier order by supplier_name")or die(mysqli_error());
+	
+	$query1=mysqli_query($con,"select * from admin order by admin_last")or die(mysqli_error());
 		
-		$countassign=mysqli_num_rows($query);
+		$countassign=mysqli_num_rows($query1);
 		if ($countassign<1) echo "
 			<div class='alert alert-danger'>
-				You have no supplier yet!
+				You have not added an admin user yet!
 			</div>";
-			while($row=mysqli_fetch_array($query))
+			while($row2=mysqli_fetch_array($query1))
 			{
 			
 ?>								
 							<tr>
-                        		<td><?php echo $row['supplier_name'];?></td>
-                        		<td><?php echo $row['supplier_address'];?></td>
-                        		<td><?php echo $row['supplier_contact'];?></td>
-						        <td>
-									<a class="btn default" data-toggle="modal" href="#edit<?php echo $row['supplier_id'];?>">
+								<td>
+									 <?php echo $row2['admin_last'];?>
+								</td>
+								<td>
+									 <?php echo $row2['admin_first'];?>
+								</td>
+								<td>
+									 <?php echo $row2['admin_email'];?>
+								</td>
+								<td>
+									<a class="btn default" data-toggle="modal" href="#edit<?php echo $row2['admin_id'];?>">
 									<i class="icon-note font-blue"></i> </a>
 								</td>
 								<td>
-									<a class="btn default" data-toggle="modal" href="#delete<?php echo $row['supplier_id'];?>">
+									<a class="btn default" data-toggle="modal" href="#delete<?php echo $row2['admin_id'];?>">
 									<i class="icon-trash font-red"></i> </a>
 								</td>
 							</tr>
 							<!-- /.edit -->
-							<div class="modal fade bs-modal-sm" id="edit<?php echo $row['supplier_id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal fade bs-modal-sm" id="edit<?php echo $row2['admin_id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
 								<div class="modal-dialog modal-sm">
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-											<h4 class="modal-title">Update Supplier Details</h4>
+											<h4 class="modal-title">Update Admin Details</h4>
 										</div>
 										<div class="modal-body">
 											<!-- BEGIN SAMPLE FORM PORTLET-->
 										<div class="portlet light">
 											
 											<div class="portlet-body form">
-												<form role="form" method="post" action="supplier_update.php">
-													<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $row['supplier_id'];?>" required>
-													<div class="form-group form-md-line-input form-md-floating-label-info">
-														<input type="text" class="form-control" id="form_control_1" name="name" value="<?php echo $row['supplier_name'];?>" required>
-														<label for="form_control_1">Supplier Name</label>
-														<span class="help-block">Supplier Name</span>
+												<form role="form" method="post" action="admin_update.php">
+													<div class="form-group form-md-line-input form-md-floating-label">
+														<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $row2['admin_id'];?>" required>
+														<input type="text" class="form-control" id="form_control_1" name="last" value="<?php echo $row2['admin_last'];?>" required>
+														<span class="help-block">Admin Last Name</span>
 													</div>
-													<div class="form-group form-md-line-input form-md-floating-label-info">
-														<textarea class="form-control" rows="2" name="address"><?php echo $row['supplier_address'];?>
-														</textarea>
-														<label for="form_control_1">Address</label>
-														<span class="help-block">Address</span>
+													<div class="form-group form-md-line-input form-md-floating-label">
+														<input type="text" class="form-control" id="form_control_1" name="first" value="<?php echo $row2['admin_first'];?>" required>
+														<span class="help-block">Admin First Name</span>
 													</div>
-													
-													<div class="form-group form-md-line-input form-md-floating-label-info">
-														<input type="text" class="form-control" id="form_control_1" name="contact" value="<?php echo $row['supplier_contact'];?>" required>
-														<label for="form_control_1">Contact</label>
-														<span class="help-block">Contact</span>
+													<div class="form-group form-md-line-input form-md-floating-label">
+														<input type="text" class="form-control" id="form_control_1" name="email" value="<?php echo $row2['admin_email'];?>" required>
+														<span class="help-block">Admin Email</span>
 													</div>
-													
 											</div>
 										</div>
 										<!-- END SAMPLE FORM PORTLET-->
@@ -153,22 +160,22 @@ License: You must have a valid license purchased only from themeforest(the above
 							</div>
 							<!-- /.modal -->	
 							<!-- /.delete -->
-							<div class="modal fade bs-modal-sm" id="delete<?php echo $row['supplier_id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal fade bs-modal-sm" id="delete<?php echo $row2['admin_id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
 								<div class="modal-dialog modal-sm">
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-											<h4 class="modal-title">Delete Supplier</h4>
+											<h4 class="modal-title">Delete Admin</h4>
 										</div>
 										<div class="modal-body">
 											<!-- BEGIN SAMPLE FORM PORTLET-->
 										<div class="portlet light">
 											
 											<div class="portlet-body form">
-												<form role="form" method="post" action="supplier_del.php">
+												<form role="form" method="post" action="admin_del.php">
 													<div class="form-group form-md-line-input form-md-floating-label">
-														<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $row['supplier_id'];?>" required>
-														Are you sure you want to delete supplier <?php echo $row['supplier_name'];?>?
+														<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $row2['admin_id'];?>" required>
+														Are you sure you want to delete <?php echo $row2['admin_first']." ".$row2['admin_last'];?>?
 													</div>
 													
 													
@@ -203,28 +210,26 @@ License: You must have a valid license purchased only from themeforest(the above
 											<div class="portlet-title">
 												<div class="caption font-red-sunglo">
 													<i class=" icon-notebook font-red-sunglo"></i>
-													<span class="caption-category bold uppercase"> Add supplier</span>
+													<span class="caption-Admin bold uppercase"> Add Admin</span>
 												</div>
 											</div>
 											<div class="portlet-body form">
-												<form role="form" method="post" action="supplier_save.php">
-													<div class="form-group form-md-line-input form-md-floating-label has-info">
-														<input type="text" class="form-control" id="form_control_1" name="name" required>
-														<label for="form_control_1">Supplier Name</label>
-														<span class="help-block">Supplier Name</span>
+												<form role="form" method="post" action="admin_save.php">
+													<div class="form-group form-md-line-input form-md-floating-label">
+														<input type="text" class="form-control" id="form_control_1" name="last" required>
+														<label for="form_control_1">Last Name</label>
+														<span class="help-block">Admin Last Name</span>
 													</div>
 													<div class="form-group form-md-line-input form-md-floating-label">
-														<textarea class="form-control" rows="3" name="address"></textarea>
-														<label for="form_control_1">Address</label>
-														<span class="help-block">Address</span>
+														<input type="text" class="form-control" id="form_control_1" name="first" required>
+														<label for="form_control_1">First Name</label>
+														<span class="help-block">Admin First Name</span>
 													</div>
-													
 													<div class="form-group form-md-line-input form-md-floating-label">
-														<input type="text" class="form-control" id="form_control_1" name="contact" required>
-														<label for="form_control_1">Contact</label>
-														<span class="help-block">Contact</span>
+														<input type="text" class="form-control" id="form_control_1" name="email" required>
+														<label for="form_control_1">Email</label>
+														<span class="help-block">Admin Email</span>
 													</div>
-													
 													<div class="form-actions noborder">
 														<button type="submit" class="btn blue">Save</button>
 														<button type="reset" class="btn default">Cancel</button>
@@ -283,29 +288,3 @@ Profile.init(); // init page demo
 </body>
 <!-- END BODY -->
 </html> 	
-<?php
-if (isset($_POST['import'])) 
-{
-	if (is_uploaded_file($_FILES['image']['tmp_name'])) {
-		echo "<h1>" . "File ". $_FILES['image']['name'] ." uploaded successfully." . "</h1>";
-		echo "<h2>Displaying contents:</h2>";
-		readfile($_FILES['image']['tmp_name']);
-	}
-
-	//Import uploaded file to Database
-	$handle = fopen($_FILES['image']['tmp_name'], "r");
-
-	while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-		mysqli_query($con,"INSERT into category(category_code,category_title) values('$data[0]','$data[1]')");
-		
-		}
-
-	fclose($handle);
-
-	//print "Import done";
-	echo "<script type='text/javascript'>alert('Successfully imported a CSV file!');</script>";
-	echo "<script>document.location='category.php'</script>";
-	//view upload form
-}
-
-?>

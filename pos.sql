@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2020 at 05:12 AM
+-- Generation Time: Jul 17, 2020 at 02:14 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -91,7 +91,7 @@ CREATE TABLE `expense` (
 
 INSERT INTO `expense` (`expense_id`, `expense`, `expense_amount`, `expense_date`) VALUES
 (1, 'Salary of Cashier', '250.00', '2020-04-24'),
-(2, 'Travelling Expense', '150.00', '2020-04-24');
+(2, 'Travelling Expense', '120.00', '2020-04-24');
 
 -- --------------------------------------------------------
 
@@ -198,7 +198,26 @@ INSERT INTO `history_log` (`log_id`, `user_id`, `action`, `date`) VALUES
 (162, 11, 'successfully logged in!', '2020-05-06 05:11:00'),
 (163, 11, 'has logged out!', '2020-05-06 05:11:00'),
 (164, 12, 'successfully logged in!', '2020-05-06 05:12:00'),
-(165, 12, 'has logged out!', '2020-05-06 05:12:00');
+(165, 12, 'has logged out!', '2020-05-06 05:12:00'),
+(166, 11, 'successfully logged in!', '2020-05-06 05:19:00'),
+(167, 11, 'successfully logged in!', '2020-06-12 10:17:00'),
+(168, 11, 'has logged out!', '2020-06-12 10:28:00'),
+(169, 11, 'successfully logged in!', '2020-06-12 10:28:00'),
+(170, 11, 'has logged out!', '2020-06-12 10:29:00'),
+(171, 12, 'successfully logged in!', '2020-06-12 10:29:00'),
+(172, 12, 'has logged out!', '2020-06-12 14:05:00'),
+(173, 12, 'successfully logged in!', '2020-06-12 14:06:00'),
+(174, 12, 'has logged out!', '2020-06-12 14:06:00'),
+(175, 12, 'successfully logged in!', '2020-06-12 14:06:00'),
+(176, 12, 'successfully added new sales worth 90.00', '2020-06-12 20:15:36'),
+(177, 12, 'successfully added new sales worth 500.00', '2020-06-12 20:21:10'),
+(178, 12, 'successfully added new sales worth 150.00', '2020-06-12 20:23:56'),
+(179, 12, 'has logged out!', '2020-06-12 14:24:00'),
+(180, 11, 'successfully logged in!', '2020-06-12 14:24:00'),
+(181, 11, 'successfully logged in!', '2020-06-12 15:19:00'),
+(182, 11, 'has logged out!', '2020-06-12 15:19:00'),
+(183, 11, 'successfully logged in!', '2020-06-12 15:21:00'),
+(184, 11, 'has logged out!', '2020-06-12 15:22:00');
 
 -- --------------------------------------------------------
 
@@ -239,18 +258,18 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`prod_id`, `prod_pic`, `prod_desc`, `prod_name`, `supplier_id`, `prod_price`, `prod_qty`, `prod_unit`, `grams`, `cat_id`, `reorder`) VALUES
-(2, 'default.gif', 'chu chu chu', 'Side Mirror', 1, '100.00', '115', '', '', 1, 5),
+(2, 'default.gif', 'chu chu chu', 'Side Mirror', 1, '100.00', '110', '', '', 1, 5),
 (3, 'intro-bg.jpg', '														', 'jhjh', 1, '123.00', '-8', '', '', 1, 2),
 (4, 'albacore-tuna.jpg', '														', 'test', 1, '210.00', '', '', '', 1, 2),
 (5, 'food.png', 'dsds													', 'kjhjh', 1, '110.00', '-1', '', '', 1, 1),
 (6, 'libbys-sliced-carrots-230g.jpg', 'ytytyt												', 'klk', 1, '10.00', '', '', '', 1, 2),
 (7, 'tide-powder-2.72kg.jpg', 'tete														', 'tgete', 1, '44.00', '', '', '', 1, 4),
-(8, 'tide-powder-2.72kg.jpg', 'Sardines', 'Tinapa', 2, '15.00', '145', '', '', 7, 10),
+(8, 'tide-powder-2.72kg.jpg', 'Sardines', 'Tinapa', 2, '15.00', '135', '', '', 7, 10),
 (9, 'starkist-chunk-light-tuna.jpeg', 'kj														', 'jk', 2, '45.00', '', '', '', 1, 4),
 (10, 'fresh-eggs-10.jpg', 'jkjk														', 'l;l', 2, '12.00', '', '', '', 1, 1),
 (11, '', 'dada', '', 1, '0.00', '', '', '', 0, 20),
 (12, 'logo.png', '555																												', '5644', 2, '11.00', '', '', '', 10, 1),
-(13, 'default.gif', 'jhsjfhsjfkshfjkshfsjkhfsjkhsjkfhsjkfhsjfh', '555 Corned Beef', 1, '30.00', '37', '', '', 1, 10);
+(13, 'default.gif', 'jhsjfhsjfkshfjkshfsjkhfsjkhsjkfhsjkfhsjfh', '555 Corned Beef', 1, '30.00', '34', '', '', 1, 10);
 
 -- --------------------------------------------------------
 
@@ -275,10 +294,9 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`sales_id`, `cash_tendered`, `user_id`, `total`, `discount`, `amount_due`, `date_added`, `modeofpayment`, `cash_change`) VALUES
-(17, '300.00', 3, '210.00', '0.00', '210.00', '2020-04-25 12:25:08', '', '90.00'),
-(18, '50.00', 3, '30.00', '0.00', '30.00', '2020-04-26 11:39:11', '', '20.00'),
-(19, '150.00', 3, '150.00', '0.00', '150.00', '2020-04-26 12:40:13', '', '0.00'),
-(20, '1500.00', 10, '1050.00', '0.00', '1050.00', '2020-04-26 12:48:29', '', '450.00');
+(21, '100.00', 12, '90.00', '0.00', '90.00', '2020-06-11 20:15:36', '', '10.00'),
+(22, '500.00', 12, '500.00', '0.00', '500.00', '2020-06-12 20:21:10', '', '0.00'),
+(23, '200.00', 12, '150.00', '0.00', '150.00', '2020-04-08 20:23:56', '', '50.00');
 
 -- --------------------------------------------------------
 
@@ -299,26 +317,9 @@ CREATE TABLE `sales_details` (
 --
 
 INSERT INTO `sales_details` (`sales_details_id`, `sales_id`, `prod_id`, `price`, `qty`) VALUES
-(1, 1, 2, '100.00', 1),
-(2, 2, 2, '100.00', 5),
-(3, 0, 2, '300.00', 1),
-(4, 0, 2, '200.00', 2),
-(5, 7, 2, '400.00', 4),
-(6, 8, 2, '100.00', 1),
-(7, 12, 2, '100.00', 1),
-(8, 12, 3, '123.00', 1),
-(9, 13, 3, '123.00', 1),
-(10, 13, 5, '110.00', 1),
-(11, 14, 3, '123.00', 1),
-(12, 15, 3, '123.00', 1),
-(13, 15, 2, '100.00', 1),
-(14, 69, 3, '615.00', 5),
-(15, 17, 13, '30.00', 2),
-(16, 17, 8, '15.00', 10),
-(17, 18, 13, '30.00', 1),
-(18, 19, 8, '15.00', 10),
-(19, 20, 13, '30.00', 10),
-(20, 20, 8, '15.00', 50);
+(21, 21, 13, '30.00', 3),
+(22, 22, 2, '100.00', 5),
+(23, 23, 8, '15.00', 10);
 
 -- --------------------------------------------------------
 
@@ -429,7 +430,7 @@ CREATE TABLE `supplier` (
 
 INSERT INTO `supplier` (`supplier_id`, `supplier_name`, `supplier_address`, `supplier_contact`) VALUES
 (1, 'Proctor and Gamble', 'Bacolod City', '09086152757'),
-(2, 'leee', 'addre', '4545411');
+(2, 'Robina', 'bago', '234');
 
 -- --------------------------------------------------------
 
@@ -466,7 +467,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `username`, `password`, `last`, `first`, `status`, `user_type`) VALUES
 (11, 'jenzen', 'b1b3l9la0i20e4059d89a53cceef05e5a8e9152647', 'Daquiado', 'Jenzen', '', 'admin'),
-(12, 'cashier', 'b1b3l9la0i6ac2470ed8ccf204fd5ff89b32a355cf', 'Daquiado', 'Jenzen', '', 'cashier');
+(12, 'cashier', 'b1b3l9la0i202cb962ac59075b964b07152d234b70', 'Daquiado', 'Jenzen', '', 'cashier');
 
 --
 -- Indexes for dumped tables
@@ -596,7 +597,7 @@ ALTER TABLE `expense`
 -- AUTO_INCREMENT for table `history_log`
 --
 ALTER TABLE `history_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
 --
 -- AUTO_INCREMENT for table `material`
 --
@@ -611,12 +612,12 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `sales_details`
 --
 ALTER TABLE `sales_details`
-  MODIFY `sales_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `sales_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `schedule`
 --
@@ -646,7 +647,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `temp_trans`
 --
 ALTER TABLE `temp_trans`
-  MODIFY `temp_trans_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `temp_trans_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `user`
 --
