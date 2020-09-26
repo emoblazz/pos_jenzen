@@ -21,7 +21,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title><?php include('title.php');?> | Sales Transaction</title>
+<title><?php include('title.php');?> | Sales Report</title>
 <?php include('head.php');?>
 
 </head>
@@ -62,7 +62,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<div class="portlet box blue">
 									<div class="portlet-title">
 										<div class="caption">
-											<i class="fa fa-shopping-cart"></i>Sales Transaction
+											<i class="fa fa-shopping-cart"></i>Sales Report
 										</div>
 									</div>
 									<div class="portlet-body" style="height: 100px">
@@ -96,12 +96,13 @@ License: You must have a valid license purchased only from themeforest(the above
 											$id=$_SESSION['id'];		
 											$start=date("Y/m/d",strtotime($date[0]));
 											$end=date("Y/m/d",strtotime($date[1]));
-											
+											$_SESSION['start']=$start;
+											$_SESSION['end']=$end;
 											?>
 											<div class="col-md-12">
 											<?php
 
-
+											//echo $_SESSION['end'];
 									?>      
                
           				
@@ -110,19 +111,20 @@ License: You must have a valid license purchased only from themeforest(the above
 							<a class = "btn btn-primary btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
 						
 				<h5 style="text-align:center"><b>Sales Report as of <?php echo date("M d, Y",strtotime($start))." to ".date("M d, Y",strtotime($end));?></b></h5>
+
+                    <div id="graph" style="height:250px"></div>
+                
 									<table id="" class="table table-bordered table-striped">
 						                    <thead>
 						                      <tr>
 						            			<th>Date</th>
-						            			<th>Qty</th>
-						                        <th>Product</th>
-						            			<th>Price</th>
-						                        <th>Amount</th>
+						                        <th>Total Sales</th>
 						                      </tr>
 						                    </thead>
 						                    <tbody>
 						<?php
-							$cashier=mysqli_query($con,"select * from user natural join sales where CAST(date_added as DATE) between '$start' and '$end' group by user_id")or die(mysqli_error($con));
+							$cashier=mysqli_query($con,"select * from user natural join `order` where CAST(order_date as DATE) between '$start' and '$end' group by user_id")or die(mysqli_error($con));
+								
 								//$qty=0;$grand=0;$discount=0;
 								while($cashier_r=mysqli_fetch_array($cashier)){
 						                $uid=$cashier_r['user_id']; 
@@ -132,18 +134,15 @@ License: You must have a valid license purchased only from themeforest(the above
 								</tr>
 						<?php
 
-							$query=mysqli_query($con,"select * from sales natural join sales_details natural join product where CAST(date_added as DATE) between '$start' and '$end' and user_id='$uid'")or die(mysqli_error($con));
-								$qty=0;$grand=0;$discount=0;
+							$query=mysqli_query($con,"select *,SUM(amount_due) as due from `order` where DATE_FORMAT(order_date,'%Y/%m/%d') between '$start' and '$end' and user_id='$uid' group by DATE_FORMAT(order_date,'%Y/%m/%d')")or die(mysqli_error($con));
+								$qty=0;$grand=0;$discount=0;$total=0;
 									while($row=mysqli_fetch_array($query)){
-						                $total=$row['qty']*$row['price'];
+						                $total=$row['due'];
 							   			$grand=$grand+$total;
 						?>
 						            <tr>
-										<td><?php echo date("M d, Y h:i a",strtotime($row['date_added']));?></td>
-										<td><?php echo $row['qty'];;?></td>
-						            	<td><?php echo $row['prod_name'];?></td>
-										<td><?php echo $row['price'];?></td>
-						            	<td style=""><?php echo number_format($row['total'],2);
+										<td><?php echo date("M d, Y h:i a",strtotime($row['order_date']));?></td>
+						            	<td style=""><?php echo number_format($row['due'],2);
 										}?></td>
 									</tr>
 			                    </tbody>
@@ -151,9 +150,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											
 						          <tr>
 						            <th>Total</th>
-												<th></th>
-												<th></th>
-												<th></th>
+												
 						            <th style=""><?php echo  number_format($grand,2);}?></th>
 									    </tr>					  
 						          <tr>
@@ -216,6 +213,69 @@ Profile.init(); // init page demo
         ComponentsPickers.init();
     });   
 </script>
+<script type="text/javascript">
+		$(document).ready(function() {
+			var options = {
+	            chart: {
+	                renderTo: 'graph',
+	                type: 'column',
+	                marginRight: 20,
+	                marginBottom: 25
+	            },
+	            title: {
+	                text: '',
+	                x: -20 //center
+	            },
+	            subtitle: {
+	                text: '',
+	                x: -10
+	            },
+	            xAxis: {
+	                categories: []
+	            },
+	            yAxis: {
+									
+	                title: {
+	                    text: 'No.'
+	                },
+	                plotLines: [{
+	                    value: 0,
+	                    width: 1,
+	                    color: '#808080'
+	                }]
+	            },
+	            tooltip: {
+	                formatter: function() {
+	                        return '<b>'+ this.series.name +'</b><br/>'+  Highcharts.numberFormat(this.y, 0)
+	                        this.x +': '+ this.y
+													
+									;
+	                }
+	            },
+	            legend: {
+	                layout: 'vertical',
+	                align: 'right',
+	                verticalAlign: 'top',
+	                x: 0,
+	                y: 10,
+	                borderWidth: 0
+	            },
+	            series: []
+	        }
+	        
+	        $.getJSON("data_sales.php", function(json) {
+			options.xAxis.categories = json[0]['data'];
+	        	options.series[0] = json[1];
+	        	//options.series[1] = json[2];
+	        	
+	        	
+	        	
+		        chart = new Highcharts.Chart(options);
+	        });
+	    });
+		</script>
+	      <script src="highcharts.js"></script>
+        <script src="exporting.js"></script>
 
 <!-- END JAVASCRIPTS -->
 </body>

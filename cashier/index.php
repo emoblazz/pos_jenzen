@@ -62,108 +62,95 @@ License: You must have a valid license purchased only from themeforest(the above
 								<div class="portlet box blue">
 									<div class="portlet-title">
 										<div class="caption">
-											<i class="fa fa-shopping-cart"></i>Sales Transaction
+											<i class="fa fa-shopping-cart"></i>Reservations
 										</div>
 									</div>
-									<div class="portlet-body" style="height: 100px">
-										<form method="post" action="">
-											<div class="col-md-7">
-										  		<div class="form-group">
-													<label for="date">Date/Range</label>
-											 
-														<input type="text" name="date" class="form-control" id="reservation" required> 
-										  		</div><!-- /.form group -->
-											</div>
+									<div class="portlet-body">
+									<form method="post" action="transaction_save.php">
+										<table class="table table-striped table-hover table-bordered" id="">
+							<thead>
+							<tr>
+								<th>#</th>
+                        		<th>Reservation Date</th>
+						        <th>Customer Name</th>
+						        <th>Total</th>
+                        		<th>Action</th>
+                        		
+							</tr>
+							</thead>
+							<tbody>
+							<?php
+								//include('../includes/dbcon.php');
+								$query=mysqli_query($con,"select * from `order` where order_status='pending' order by order_id")or die(mysqli_error($con));
+										//$grand=0;
+									while($row=mysqli_fetch_array($query)){
+											$id=$row['order_id'];
+											$total= $row['order_total'];
+											//$grand=$grand+$total;
+										
+							?>								
+							<tr>
+								<td><?php echo $id;?></td>
+		                        <td class="record"><?php echo $row['order_date'];?></td>
+								<td><?php echo $row['cust_name'];?></td>
+								<td style="text-align:right">P<?php echo number_format($total,2);?></td>
+								<td>
+									<a class="btn primary" href="home.php?id=<?php echo $id;?>">
+									<i class="icon-eye font-blue"></i> </a>
+									<a class="btn default" data-toggle="modal" href="#delete<?php echo $id;?>">
+									<i class="icon-trash font-red"></i> </a>
+								</td>
+								
+							</tr>
+							<!-- /.edit -->
+							
+							<!-- /.delete -->
+							<div class="modal fade bs-modal-sm" id="delete<?php echo $id;?>" tabindex="-1" role="dialog" aria-hidden="true">
+								<div class="modal-dialog modal-sm">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+											<h4 class="modal-title">Delete Product</h4>
+										</div>
+										<div class="modal-body">
+											<!-- BEGIN SAMPLE FORM PORTLET-->
+										<div class="portlet light">
 											
-											<div class="col-md-5">
-												<div class="form-group">
-													<label for="date"></label>
-													<div class="input-group">
-														<button class="btn btn-lg btn-primary" type="submit" tabindex="3" name="display">Print</button>
+											<div class="portlet-body form">
+												<form role="form" method="post" action="product_del.php">
+													<div class="form-group form-md-line-input form-md-floating-label">
+														<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $id;?>" required>
+														Are you sure you want to delete <?php echo $row['prod_name'];?>?
 													</div>
-												</div>	
+													
+													
+												
 											</div>
-										</form>	
-									</div>
+										</div>
+										<!-- END SAMPLE FORM PORTLET-->
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn default" data-dismiss="modal">Close</button>
+											<button type="submit" class="btn blue">Delete</button>
+										</div>
+									</div></form>
+									<!-- /.modal-content -->
 								</div>
+								<!-- /.modal-dialog -->
 							</div>
+							<!-- /.modal -->							
+<?php }?>							
+							</tbody>
+							</table>
+									</form>	
 
-									<?php
-									if (isset($_POST['display']))
-										{
-											$date=$_POST['date'];
-											$date=explode('-',$date);
-											$id=$_SESSION['id'];		
-											$start=date("Y/m/d",strtotime($date[0]));
-											$end=date("Y/m/d",strtotime($date[1]));
-											
-											?>
-											<div class="col-md-12">
-											<?php
-
-
-									?>      
-               
-          				
-                  
-				  <a class = "btn btn-success btn-print" href = "" onclick = "window.print()"><i class ="glyphicon glyphicon-print"></i> Print</a>
-							<a class = "btn btn-primary btn-print" href = "index.php"><i class ="glyphicon glyphicon-arrow-left"></i> Back to Homepage</a>   
-						
-				<h5 style="text-align:center"><b>Sales Report as of <?php echo date("M d, Y",strtotime($start))." to ".date("M d, Y",strtotime($end));?></b></h5>
-									<table id="" class="table table-bordered table-striped">
-						                    <thead>
-						                      <tr>
-						            			<th>Date</th>
-						            			<th>Qty</th>
-						                        <th>Product</th>
-						            			<th>Price</th>
-						                        <th>Amount</th>
-						                      </tr>
-						                    </thead>
-						                    <tbody>
-						<?php
-							$query=mysqli_query($con,"select * from `order` natural join order_details natural join product where CAST(order_date as DATE) between '$start' and '$end' and user_id='$id'")or die(mysqli_error($con));
-								$qty=0;$grand=0;$discount=0;
-														while($row=mysqli_fetch_array($query)){
-						                 				$total=$row['qty']*$row['price'];
-														$grand=$grand+$total;
-						?>
-						            <tr>
-												<td><?php echo date("M d, Y h:i a",strtotime($row['order_date']));?></td>
-												<td><?php echo $row['qty'];;?></td>
-						            <td><?php echo $row['prod_name'];?></td>
-												<td><?php echo $row['price'];?></td>
-						            <td style=""><?php echo number_format($row['total'],2);
-														}?></td>
-									
-								
-						                        
-						                      </tr>
-								
-						                    </tbody>
-						                    <tfoot>
-											
-						          <tr>
-						            <th>Total</th>
-												<th></th>
-												<th></th>
-												<th></th>
-						            <th style=""><?php echo  number_format($grand,2);}?></th>
-									    </tr>					  
-						          <tr>
-						                      <td colspan="3"></td>
-						                      <td colspan="2"><br><br>
-						        </td>
-						                    </tr>       
-						        </tfoot>
-						       </table>
+							
 						</div>
 					</div>
 					<!-- END EXAMPLE TABLE PORTLET-->
 								<!-- END PORTLET -->
 							</div>
-							
-						</div>
+
 						
 					</div>
 					<!-- END PROFILE CONTENT -->
@@ -189,8 +176,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <script type="text/javascript" src="autosum.js"></script>
 <script>
-	//Date range picker
-    $('#reservation').daterangepicker();
 
 jQuery(document).ready(function() {       
    // initiate layout and plugins

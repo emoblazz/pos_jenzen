@@ -52,7 +52,9 @@ License: You must have a valid license purchased only from themeforest(the above
 			<div class="row">
 				<div class="col-md-12">
 					<!-- BEGIN PROFILE SIDEBAR -->
-					<?php //include('profile_sidebar.php');?>
+					<?php //include('profile_sidebar.php');
+						$id=$_REQUEST['id'];
+					?>
 					<!-- END BEGIN PROFILE SIDEBAR -->
 					<!-- BEGIN PROFILE CONTENT -->
 					<div class="profile-content">
@@ -81,7 +83,7 @@ License: You must have a valid license purchased only from themeforest(the above
 															<option value="<?php echo $row['prod_id'];?>"><?php echo $row['prod_name']." Available(".$row['prod_qty'].")";?></option>
 													  <?php }?>
 													</select>
-									    			<input type="hidden" class="form-control" name="cid" value="<?php echo $cid;?>" required>   
+									    			<input type="hidden" class="form-control" name="id" value="<?php echo $id;?>" required>   
 									  		</div><!-- /.form group -->
 										</div>
 										<div class=" col-md-3">
@@ -116,10 +118,11 @@ License: You must have a valid license purchased only from themeforest(the above
 							<tbody>
 <?php
 	//include('../includes/dbcon.php');
-	$query=mysqli_query($con,"select * from temp_trans natural join product")or die(mysqli_error());
+	
+	$query=mysqli_query($con,"select * from `order_details` natural join product where order_id='$id'")or die(mysqli_error());
 			$grand=0;
 		while($row=mysqli_fetch_array($query)){
-				$id=$row['temp_trans_id'];
+				//$id=$row['temp_trans_id'];
 				$total= $row['qty']*$row['price'];
 				$grand=$grand+$total;
 			
@@ -202,6 +205,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<div class="portlet-body form">
 												<form role="form" method="post" action="product_del.php">
 													<div class="form-group form-md-line-input form-md-floating-label">
+														<input type="hidden" class="form-control" id="form_control_1" name="odid" value="<?php echo $row['order_details_id'];?>" required>
 														<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $id;?>" required>
 														Are you sure you want to delete <?php echo $row['prod_name'];?>?
 													</div>
@@ -233,11 +237,25 @@ License: You must have a valid license purchased only from themeforest(the above
 							<div class="col-md-4">
 							<div class="row">
 								<div class="col-md-12">
+<?php
+	
+	$query1=mysqli_query($con,"select * from `order` where order_id='$id'")or die(mysqli_error());
+			
+		$row1=mysqli_fetch_array($query1);
+				
+			
+?>
 									<!-- BEGIN SAMPLE FORM PORTLET-->
 										<div class="portlet light">
 											
 											<div class="portlet-body form">
 												<form role="form" method="post" action="sales_add.php" name="autoSumForm" >
+													<div class="form-group form-md-line-input form-md-floating-label has-info">
+														<input type="text" class="form-control" name="cust_name" value="<?php echo $row1['cust_name'];?>">
+														<input type="hidden" class="form-control" name="id" value="<?php echo $id;?>">
+														<label for="form_control_1"></label>
+														<span class="help-block">Customer Name</span>
+													</div>
 													<div class="form-group form-md-line-input form-md-floating-label has-info">
 														<input type="text" class="form-control" id="total" name="total" value="<?php echo $grand;?>" onFocus="startCalc();" onBlur="stopCalc();"  tabindex="5" readonly>
 														<label for="form_control_1">Total</label>
@@ -246,7 +264,7 @@ License: You must have a valid license purchased only from themeforest(the above
 													
 													<div class="form-group form-md-line-input">
 
-														<input type="text" class="form-control" id="discount" placeholder="Discount (Php)" onFocus="startCalc();" onBlur="stopCalc();" value="0" required>
+														<input type="text" class="form-control" id="discount" placeholder="Discount (Php)" onFocus="startCalc();" onBlur="stopCalc();" value="0" name="discount" required>
 														<label for="form_control_1">Discount</label>
 														<span class="help-block">Discount</span>
 													</div>

@@ -3,7 +3,7 @@ include('session.php');
 $id=$_SESSION['id'];
 
 
-	//$cid = $_POST['cid'];
+	$id = $_POST['id'];
 	$name = $_POST['prod_name'];
 	$qty = $_POST['qty'];
 		
@@ -15,17 +15,17 @@ $id=$_SESSION['id'];
 		
 		if ($qty<=$prod_qty)
 		{
-			$query1=mysqli_query($con,"select * from temp_trans where prod_id='$name'")or die(mysqli_error());
+			$query1=mysqli_query($con,"select * from order_details where prod_id='$name' and order_id='$id'")or die(mysqli_error());
 			$count=mysqli_num_rows($query1);
 			
 			$total=$price*$qty;
 			
 			if ($count>0){
-				mysqli_query($con,"update temp_trans set qty=qty+'$qty',price=price+'$total' where prod_id='$name'")or die(mysqli_error());
+				mysqli_query($con,"update order_details set qty=qty+'$qty',price=price+'$total' where prod_id='$name' and order_id='$id'")or die(mysqli_error());
 		
 			}
 			else{
-				mysqli_query($con,"INSERT INTO temp_trans(prod_id,qty,price) VALUES('$name','$qty','$price')")or die(mysqli_error($con));
+				mysqli_query($con,"INSERT INTO order_details(order_id,prod_id,qty,price,total) VALUES('$id','$name','$qty','$price','$total')")or die(mysqli_error($con));
 			}
 
 		
@@ -35,5 +35,5 @@ $id=$_SESSION['id'];
 
 			echo "<script type='text/javascript'>alert('Insuficient inventory for this product!');</script>";
 		}
-			echo "<script>document.location='home.php'</script>";  
+			echo "<script>document.location='home.php?id=$id'</script>";  
 ?>

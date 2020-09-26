@@ -2,7 +2,7 @@
 <?php include "dist/includes/session.php";?>
 <head>
   <meta charset="utf-8">
-  <title>Sales and Inventory System</title>
+  <title>Bike Shop</title>
 
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -18,7 +18,7 @@
   <meta property="og:image" content="-CUSTOMER VALUE-"><!-- link to image for socio -->
   <meta property="og:url" content="-CUSTOMER VALUE-">
 
-  <link rel="shortcut icon" href=".ico">
+  <link rel="shortcut icon" href="favicon.ico">
 
   <!-- Fonts START -->
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
@@ -42,7 +42,12 @@
   <link href="assets/frontend/pages/css/style-shop.css" rel="stylesheet" type="text/css">
   <link href="assets/frontend/pages/css/style-layer-slider.css" rel="stylesheet">
   <link href="assets/frontend/layout/css/style-responsive.css" rel="stylesheet">
-  <link href="assets/frontend/layout/css/themes/red.css" rel="stylesheet" id="style-color">
+  <link href="assets/frontend/layout/css/themes/black.css" rel="stylesheet" id="style-color">
   <link href="assets/frontend/layout/css/custom.css" rel="stylesheet">
   <!-- Theme styles END -->
+  <style type="text/css">
+    .add2cart{
+      background-color: #e45000 !important;
+    }
+  </style>
 </head>

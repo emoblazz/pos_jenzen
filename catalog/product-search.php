@@ -58,17 +58,17 @@ License: You must have a valid license purchased only from themeforest (the abov
             <div class="row product-list">
               <!-- PRODUCT ITEM START -->
 <?php
-         $cat_name=$_REQUEST['category'];
-         $queryp=mysqli_query($con,"SELECT * FROM product natural join category where cat_id='$cat_name'")or die(mysqli_error($con));
+         $search=$_REQUEST['search'];
+         $queryp=mysqli_query($con,"SELECT * FROM product where prod_name LIKE '%$search%'")or die(mysqli_error($con));
                           while ($rowp=mysqli_fetch_array($queryp)){
                            // $cat_name=$rowp['cat_name'];		
 ?>                   
               <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="product-item">
                   <div class="pi-img-wrapper">
-                    <img src="dist/uploads/<?php echo $rowp['prod_pic'];?>" class="img-responsive" alt="<?php echo $rowp['prod_name'];?>" style="width:250px;height: 300px">
+                    <img src="../images/<?php echo $rowp['prod_pic'];?>" class="img-responsive" alt="<?php echo $rowp['prod_name'];?>" style="width:250px;height: 300px">
                     <div>
-                      <a href="dist/uploads/<?php echo $rowp['prod_pic'];?>" class="btn btn-default fancybox-button">Zoom</a>
+                      <a href="../images/<?php echo $rowp['prod_pic'];?>" class="btn btn-default fancybox-button">Zoom</a>
                       <a href="#product-pop-up<?php echo $rowp['prod_id'];?>" class="btn btn-default fancybox-fast-view" data-target="#update<?php echo $rowp['prod_id'];?>">View</a>
                     </div>
                   </div>
@@ -84,7 +84,7 @@ License: You must have a valid license purchased only from themeforest (the abov
               <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-3">
                   <div class="product-main-image">
-                    <img src="dist/uploads/<?php echo $rowp['prod_pic'];?>" alt="Cool green dress with red bell" class="img-responsive">
+                    <img src="../images/<?php echo $rowp['prod_pic'];?>" alt="Cool green dress with red bell" class="img-responsive">
                   </div>
                 
                 </div>

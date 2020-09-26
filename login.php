@@ -34,7 +34,7 @@ $query=mysqli_query($con,"select * from user where username='$email' and passwor
 				   if ($type=="Admin")       
 				  		echo "<script type='text/javascript'>document.location='admin/home.php'</script>";
 					if ($type=="Cashier")       
-				  echo "<script type='text/javascript'>document.location='cashier/home.php'</script>";
+				  echo "<script type='text/javascript'>document.location='cashier/index.php'</script>";
 			  	}
 				  
 ?>

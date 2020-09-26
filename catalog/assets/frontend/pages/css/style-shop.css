@@ -414,7 +414,8 @@ Header and header elements
 }
 .product-item .add2cart {
 	float: right;
-	color: #a8aeb3;
+	color: #fff !important;
+	background: #E84D1C !important;
 	border: 1px #ededed solid;
 	padding: 3px 6px;
 }

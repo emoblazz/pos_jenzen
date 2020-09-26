@@ -68,8 +68,8 @@ endif;
                     <thead>
 <?php
 
-    
-    $query=mysqli_query($con,"select * from sales order by sales_id desc LIMIT 0,1")or die(mysqli_error($con));
+    $id=$_REQUEST['id'];
+    $query=mysqli_query($con,"select * from `order` where order_id='$id'")or die(mysqli_error($con));
       
         $row=mysqli_fetch_array($query);
        
@@ -83,19 +83,19 @@ endif;
                       
                     </thead>
                   </table>
-                  <table class="table">
+                  <table class="table" style="width: 100%">
                     <thead>
 
                       <tr>
-                        <th>Qty</th>
-                        <th>Product Name</th>
-            						<th>Price</th>
-            						<th class="text-right">Total</th>
+                        <td>Qty</td>
+                        <td>Product Name</td>
+            						<td>Price</th>
+            						<td class="text-right">Total</td>
                       </tr>
                     </thead>
                     <tbody>
 <?php
-		$query=mysqli_query($con,"select * from sales_details natural join product where sales_id='$sid'")or die(mysqli_error($con));
+		$query=mysqli_query($con,"select * from order_details natural join product where order_id='$id'")or die(mysqli_error($con));
 			$grand=0;
 		while($row=mysqli_fetch_array($query)){
 				//$id=$row['temp_trans_id'];
@@ -155,8 +155,8 @@ endif;
 				</div>  
 				</form>	
                 </div><!-- /.box-body -->
-                <input class="btn btn-success btn-print" type="button" name="print" value="Print" onclick="window.print();window.location.href='home.php';">
-                <a class = "btn btn-primary btn-print" href = "home.php"><i class ="glyphicon glyphicon-arrow-left"></i> New Transaction</a>
+                <input class="btn btn-success btn-print" type="button" name="print" value="Print" onclick="window.print();window.location.href='index.php';">
+                <a class = "btn btn-primary btn-print" href = "index.php"><i class ="glyphicon glyphicon-arrow-left"></i> New Transaction</a>
               </div><!-- /.box -->
             </div><!-- /.col (right) -->
            

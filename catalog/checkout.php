@@ -18,29 +18,20 @@ License: You must have a valid license purchased only from themeforest (the abov
 
 <!-- Head BEGIN -->
 <?php include "dist/includes/shop-head.php";?>
-<?php //include "dist/includes/session.php";?>
 <!-- Head END -->
 
 <!-- Body BEGIN -->
 <body class="ecommerce">
     <!-- BEGIN TOP BAR -->
     <?php 
-    if (isset($session_id))
-      include "dist/includes/topbar.php";
-    else
+    
       include "dist/includes/shop-topbar.php";
     ?>
 
     <!-- END TOP BAR -->
 
     <!-- BEGIN HEADER -->
-    <?php 
-    if (isset($session_id))
-      include "dist/includes/header.php";
-    else
-      include "dist/includes/shop-header.php";
-    ?>
-
+    <?php include "dist/includes/shop-header.php";?>
 
     <!-- Header END -->
 
@@ -59,49 +50,95 @@ License: You must have a valid license purchased only from themeforest (the abov
         <!-- BEGIN SIDEBAR & CONTENT --> 
         <div class="row margin-bottom-40 ">
           <!-- BEGIN SIDEBAR -->
-        <?php include "dist/includes/shop-sidebar.php";?>
+        <?php //include "dist/includes/shop-sidebar.php";?>
           
           <!-- END SIDEBAR -->
-<?php
-         $item=$_REQUEST['item'];
-         $queryp=mysqli_query($con,"SELECT * FROM product where prod_id='$item'")or die(mysqli_error($con));
-                  $rowp=mysqli_fetch_array($queryp);
-?>              
           <!-- BEGIN CONTENT -->
-          <div class="col-md-9 col-sm-7">
-            <div class="product-page">
-              <div class="row">
-                <div class="col-md-6 col-sm-6">
-                  <div class="product-main-image">
-                    <img src="dist/uploads/<?php echo $rowp['prod_pic'];?>" alt="Cool green dress with red bell" class="img-responsive" data-BigImgsrc="dist/uploads/<?php echo $rowp['prod_pic'];?>">
-                  </div>
-                </div>
-                <div class="col-md-6 col-sm-6">
-                  <h1><?php echo $rowp['prod_name'];?></h1>
-                  <div class="price-availability-block clearfix">
-                    <div class="price">
-                      <strong><span>P</span><?php echo $rowp['prod_price'];?></strong>
+          <div class="col-md-12 col-sm-12">
+            <h1>Shopping cart</h1>
+            <div class="goods-page">
+              <div class="goods-data clearfix">
+                <div class="col-md-12">  
+<?php
+  $query1=mysqli_query($con,"SELECT * FROM `order` natural join order_details natural join product order by order_id DESC LIMIT 0,1")or die(mysqli_error($con));
+                          $row1=mysqli_fetch_array($query1);
+
+                          $id=$row1['order_id'];
+                          //$cust_id=$row1['cust_id'];
+?>                  
+                  <div class="row invoice-info">
+                    <!-- /.col -->
+                    <div class="col-sm-4 invoice-col">
+                      <b>First Name: <?php echo $row1['cust_name'];?></b><br>
+                      
+                      <br>
+                    </div> 
+                    <div class="col-sm-4 invoice-col">
+                      <b>Order # <?php echo $row1['order_id'];?></b><br>
+                      <b>Order Date: </b> <?php echo $row1['order_date'];?><br>
+                      <br>
+                    </div>                     
+                    <!-- /.col -->
+                    <div class="col-sm-4 invoice-col">
+                      <b>Order Status: </b><?php echo $row1['order_status'];?><br>
+                      <b>Payment Due: </b> <?php echo $row1['order_total'];?><br>
                     </div>
-                    <div class="availability">
-                      Available: <strong><?php echo $rowp['prod_qty'];?></strong>
-                    </div>
-                  </div>
-                  <div class="description">
-                    <p><?php echo $rowp['prod_desc'];?></p>
-                  </div>
-                  
-                  <div class="product-page-cart">
+                    <!-- /.col -->
                     
-                    <?php 
-                  if (isset($session_id))
-                    echo "<a href='add_cart.php?prod_id=$rowp[prod_id]' class='btn btn-primary add2cart'>Add to cart</a>";
-                  else
-                    echo "<a href='login.php' class='btn btn-default add2cart'>Login to Add</a>";
-                  ?>
                   </div>
-                  
+                  <hr>
+                <div class="table-wrapper-responsive">
+                <table summary="Shopping cart">
+                  <tr>
+                    <th class="goods-page-image">Image</th>
+                    <th class="goods-page-description">Item</th>
+                    <th class="goods-page-ref-no">Description</th>
+                    <th class="goods-page-quantity">Quantity</th>
+                    <th class="goods-page-price">Unit price</th>
+                    <th class="goods-page-total" colspan="2">Total</th>
+                  </tr>
+<?php
+  $query=mysqli_query($con,"SELECT * FROM `order` natural join order_details natural join product where order_id='$id'")or die(mysqli_error($con));
+                          while ($row=mysqli_fetch_array($query)){
+?>                   
+                  <tr>
+                    <td class="goods-page-image">
+                      <a href="javascript:;"><img src="../images/<?php echo $row['prod_pic'];?>" alt="Berry Lace Dress"></a>
+                    </td>
+                    <td class="goods-page-description">
+                      <h3><a href="javascript:;"><?php echo $row['prod_name'];?></a></h3>
+                    </td>
+                    <td class="goods-page-ref-no">
+                      <?php echo $row['prod_desc'];?>
+                    </td>
+                    <td class="goods-page-quantity">
+                      <strong><span><?php echo $row['qty'];?></span></strong>
+
+                    </td>
+                    <td class="goods-page-price">
+                      <strong><span>P</span><?php echo $row['price'];?></strong>
+                    </td>
+                    <td class="goods-page-total">
+                      <strong><span>P</span><?php echo $row['total'];?></strong>
+                    </td>
+                  </tr>
+<?php }?>                  
+                </table>
+                </div>
+<?php
+  $query1=mysqli_query($con,"SELECT * FROM `order` where order_id='$id' order by order_id DESC LIMIT 0,1")or die(mysqli_error($con));
+                          $row1=mysqli_fetch_array($query1);
+?>    
+                <div class="shopping-total">
+                  <ul>
+                    <li class="shopping-total-price">
+                      <em>Total</em>
+                      <strong class="price"><span>P</span><?php echo $row1['order_total'];?></strong>
+                    </li>
+                  </ul>
                 </div>
               </div>
+              
             </div>
           </div>
           <!-- END CONTENT -->
@@ -111,13 +148,31 @@ License: You must have a valid license purchased only from themeforest (the abov
         
       </div>
     </div>
-
+<?php 
+ if (isset($_REQUEST['id']))
+ {
+    $cart_id=$_REQUEST['id'];
+    if (isset($_REQUEST['action']))
+    {  
+       if ($_REQUEST['action']=="add")
+       {
+       mysqli_query($con,"UPDATE cart SET qty = qty + 1 where cart_id='$id'")or die(mysqli_error($con)); 
+       echo "<script>document.location='cart.php?id=$id'</script>";
+     }
+      elseif ($_REQUEST['action']=="remove")
+      {
+       mysqli_query($con,"UPDATE cart SET qty = qty - 1 where cart_id='$id'")or die(mysqli_error($con)); 
+       echo "<script>document.location='cart.php?id=$id'</script>";
+     }
+    }
+}
+?>
     <!-- BEGIN BRANDS -->
-    <?php include "dist/includes/shop-brands.php";?>
+    <?php //include "dist/includes/shop-brands.php";?>
     <!-- END BRANDS -->
 
     <!-- BEGIN STEPS -->
-    <?php include "dist/includes/shop-steps.php";?>
+    <?php //include "dist/includes/shop-steps.php";?>
     
     <!-- END STEPS -->
 
