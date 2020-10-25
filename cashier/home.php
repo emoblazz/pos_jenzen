@@ -122,7 +122,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	$query=mysqli_query($con,"select * from `order_details` natural join product where order_id='$id'")or die(mysqli_error());
 			$grand=0;
 		while($row=mysqli_fetch_array($query)){
-				//$id=$row['temp_trans_id'];
+				$oid=$row['order_details_id'];
 				$total= $row['qty']*$row['price'];
 				$grand=$grand+$total;
 			
@@ -134,7 +134,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								<td style="text-align:right"><?php echo number_format($total,2);?></td>
 								<td>
 									
-									<a class="btn default" data-toggle="modal" href="#delete<?php echo $id;?>">
+									<a class="btn default" data-toggle="modal" href="#delete<?php echo $oid;?>">
 									<i class="icon-trash font-red"></i> </a>
 								</td>
 								
@@ -191,7 +191,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							</div>
 							<!-- /.modal -->	
 							<!-- /.delete -->
-							<div class="modal fade bs-modal-sm" id="delete<?php echo $id;?>" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal fade bs-modal-sm" id="delete<?php echo $oid;?>" tabindex="-1" role="dialog" aria-hidden="true">
 								<div class="modal-dialog modal-sm">
 									<div class="modal-content">
 										<div class="modal-header">
