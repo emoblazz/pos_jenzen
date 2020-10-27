@@ -104,9 +104,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                     <td class="goods-page-total">
                       <strong><span>P</span><?php echo number_format($subtotal,2);?></strong>
                     </td>
-                    <td class="del-goods-col">
-                      <a class="del-goods" href="javascript:;"></a>
-                    </td>
+                   
                   </tr>
 <?php }?>                  
                 </table>

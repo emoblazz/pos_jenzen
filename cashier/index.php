@@ -66,7 +66,7 @@ License: You must have a valid license purchased only from themeforest(the above
 										</div>
 									</div>
 									<div class="portlet-body">
-									<form method="post" action="transaction_save.php">
+									
 										<table class="table table-striped table-hover table-bordered" id="">
 							<thead>
 							<tr>
@@ -110,17 +110,17 @@ License: You must have a valid license purchased only from themeforest(the above
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-											<h4 class="modal-title">Delete Product</h4>
+											<h4 class="modal-title">Delete Reservation</h4>
 										</div>
 										<div class="modal-body">
 											<!-- BEGIN SAMPLE FORM PORTLET-->
 										<div class="portlet light">
 											
 											<div class="portlet-body form">
-												<form role="form" method="post" action="product_del.php">
+												<form role="form" method="post" action="reservation_del.php">
 													<div class="form-group form-md-line-input form-md-floating-label">
 														<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $id;?>" required>
-														Are you sure you want to delete <?php echo $row['prod_name'];?>?
+														Are you sure you want to delete <?php echo $row['cust_name'];?>'s reservation?
 													</div>
 													
 													
@@ -142,7 +142,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <?php }?>							
 							</tbody>
 							</table>
-									</form>	
+									
 
 							
 						</div>

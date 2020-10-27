@@ -21,7 +21,7 @@ $id=$_SESSION['id'];
 			$total=$price*$qty;
 			
 			if ($count>0){
-				mysqli_query($con,"update order_details set qty=qty+'$qty',price=price+'$total' where prod_id='$name' and order_id='$id'")or die(mysqli_error());
+				mysqli_query($con,"update order_details set qty=qty+'$qty',total='$total' where prod_id='$name' and order_id='$id'")or die(mysqli_error());
 		
 			}
 			else{

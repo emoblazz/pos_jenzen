@@ -111,7 +111,7 @@ include('session.php');
 								</td>
 							</tr>
 							<!-- /.edit -->
-							<div class="modal fade bs-modal-sm" id="edit<?php echo $row2['teacher_id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
+							<div class="modal fade bs-modal-sm" id="edit<?php echo $row2['user_id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
 								<div class="modal-dialog modal-sm">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -123,19 +123,20 @@ include('session.php');
 										<div class="portlet light">
 											
 											<div class="portlet-body form">
-												<form role="form" method="post" action="faculty_update.php">
+												<form role="form" method="post" action="user_update.php">
+													
 													<div class="form-group form-md-line-input form-md-floating-label">
-														<input type="text" class="form-control" id="form_control_1" name="idno" value="<?php echo $row2['teacher_id_no'];?>" required>
-														<span class="help-block">ID Number</span>
+														<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $row2['user_id'];?>" required>
+														<input type="text" class="form-control" id="form_control_1" name="last" value="<?php echo $row2['last'];?>" required>
+														<span class="help-block">Last Name</span>
 													</div>
 													<div class="form-group form-md-line-input form-md-floating-label">
-														<input type="hidden" class="form-control" id="form_control_1" name="id" value="<?php echo $row2['teacher_id'];?>" required>
-														<input type="text" class="form-control" id="form_control_1" name="last" value="<?php echo $row2['teacher_last'];?>" required>
-														<span class="help-block">Teacher Last Name</span>
+														<input type="text" class="form-control" id="form_control_1" name="first" value="<?php echo $row2['first'];?>" required>
+														<span class="help-block">First Name</span>
 													</div>
 													<div class="form-group form-md-line-input form-md-floating-label">
-														<input type="text" class="form-control" id="form_control_1" name="first" value="<?php echo $row2['teacher_first'];?>" required>
-														<span class="help-block">Teacher First Name</span>
+														<input type="text" class="form-control" id="form_control_1" name="username" value="<?php echo $row2['username'];?>" required>
+														<span class="help-block">Username</span>
 													</div>
 													
 													

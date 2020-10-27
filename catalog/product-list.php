@@ -72,7 +72,7 @@ License: You must have a valid license purchased only from themeforest (the abov
                       <a href="#product-pop-up<?php echo $rowp['prod_id'];?>" class="btn btn-default fancybox-fast-view" data-target="#update<?php echo $rowp['prod_id'];?>">View</a>
                     </div>
                   </div>
-                  <h3><a href="shop-item.html"><?php echo $rowp['prod_name'];?></a></h3>
+                  <h3><a href=""><?php echo $rowp['prod_name'];?></a></h3>
                   <div class="pi-price">P<?php echo $rowp['prod_price'];?></div>
                   <a href="add_cart.php?prod_id=<?php echo $rowp['prod_id'];?>" class="btn btn-primary add2cart">Add to cart</a>
                 </div>
@@ -104,10 +104,9 @@ License: You must have a valid license purchased only from themeforest (the abov
                   </div>
                   <div class="product-page-cart">
                      <?php 
-                  if (isset($session_id))
+                 
                     echo "<a href='add_cart.php?prod_id=$rowp[prod_id]' class='btn btn-primary add2cart'>Add to cart</a>";
-                  else
-                    echo "<a href='login.php' class='btn btn-default add2cart'>Login to Add</a>";
+                
                   ?>
                   </div>
                 </div>

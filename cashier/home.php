@@ -130,7 +130,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							<tr>
 								<td><?php echo $row['qty'];?></td>
 		                        <td class="record"><?php echo $row['prod_name'];?></td>
-								<td><?php echo $row['price'];?></td>
+								<td><?php echo $row['prod_price'];?></td>
 								<td style="text-align:right"><?php echo number_format($total,2);?></td>
 								<td>
 									
