@@ -68,14 +68,14 @@
 											{	
 									?>
 									<li>
-										<a href="javascript:;">
+										
 										<span class="time"></span>
 										<span class="details">
 										<span class="label label-sm label-icon label-danger">
 										<i class="fa fa-ban"></i>
 										</span>
 										<?php echo $row['prod_name'];?> </span>
-										</a>
+										
 									</li>
 									<?php }?>
 								</ul>

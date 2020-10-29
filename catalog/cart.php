@@ -77,10 +77,12 @@ License: You must have a valid license purchased only from themeforest (the abov
   $query=mysqli_query($con,"SELECT * FROM `cart` natural join product")or die(mysqli_error($con));
                           $total=0;
                           $subtotal=0;
+                          $i=0;
                           while ($row=mysqli_fetch_array($query)){
                            $id=$row['cart_id'];    
                            $subtotal=$row['prod_price']*$row['qty'];
                            $total=$total+$subtotal;
+                           $i++;
 ?>                   
                   <tr>
                     <td class="goods-page-image">
@@ -120,7 +122,17 @@ License: You must have a valid license purchased only from themeforest (the abov
                 </div>
               </div>
               <a class="btn btn-default" href="index.php">Continue shopping <i class="fa fa-shopping-cart"></i></a>
-              <a class="btn btn-primary" id="confirm">Confirm Order <i class="fa fa-check"></i></a>
+              <?php
+              $stat="";
+              if ($i<=0)
+              {
+                $stat="disabled";
+                //$name="";
+              }
+              ?>
+              <a class="btn btn-primary" id="confirm" <?php echo $stat;?>>Confirm Order <i class="fa fa-check"></i></a>
+
+              
             </div>
           </div>
           <!-- END CONTENT -->
@@ -270,7 +282,7 @@ Nostrud duis molestie at dolore.</p>
     <?php include "dist/includes/shop-script.php";?>
     <!-- END PAGE LEVEL JAVASCRIPTS -->
     <script type="text/javascript">
-    $(confirm).on('click',function(){
+    $('#confirm').on('click',function(){
         $('#myModal').modal('show');
     });
        

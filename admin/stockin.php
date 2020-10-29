@@ -224,6 +224,12 @@ Profile.init(); // init page demo
 		Demo.init(); // init demo features
         ComponentsPickers.init();
     });   
+
+    $(document).ready(function() {
+    $('#example').DataTable( {
+        "order": [[ 0, "desc" ]]
+    } );
+} );
 </script>
 <!-- END JAVASCRIPTS -->
 </body>

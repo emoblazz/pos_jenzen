@@ -73,7 +73,7 @@ endif;
       
         $row=mysqli_fetch_array($query);
        
-        $sid=$_SESSION['sid'];
+        //$sid=$_SESSION['sid'];
         $due=$row['amount_due'];
         $discount=$row['discount'];
         $grandtotal=$due-$discount;

@@ -68,7 +68,7 @@
 											{	
 									?>
 									<li>
-										<a href="javascript:;">
+										<a href="#">
 										<span class="time"></span>
 										<span class="details">
 										<span class="label label-sm label-icon label-danger">
