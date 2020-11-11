@@ -32,7 +32,7 @@
 <script type="text/javascript" src="../assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="../assets/admin/pages/scripts/components-pickers.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>	
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>-->
 <script>
 jQuery(document).ready(function() {       
    // initiate layout and plugins
@@ -46,9 +46,7 @@ jQuery(document).ready(function() {
 $(document).ready(function() {       
 	$('.select2').select2();
 });
-$(document).ready(function() {       
-	$('#example').DataTable();
-});
+
 </script>
 
 <!-- END JAVASCRIPTS -->

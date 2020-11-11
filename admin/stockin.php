@@ -8,7 +8,7 @@ include('session.php');
 <meta charset="utf-8"/>
 <title><?php include('title.php');?> | Stockin</title>
 <?php include('head.php');?>
-
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
 <body class="page-md page-header-fixed page-sidebar-closed page-sidebar-closed-hide-logo">
 <?php include('header.php');?>
@@ -229,12 +229,18 @@ Profile.init(); // init page demo
     $('#example').DataTable( {
         "order": [[ 0, "desc" ]]
     } );
+
+    $(document).ready(function() {       
+	$('#example').DataTable();
+});
 } );
 </script>
 <!-- END JAVASCRIPTS -->
+
 </body>
 <!-- END BODY -->
 </html> 	
+
 <?php
 if (isset($_POST['import'])) 
 {
